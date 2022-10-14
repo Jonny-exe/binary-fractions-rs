@@ -1,10 +1,29 @@
 [package]
-name = "bf"
+name = "binary-fractions"
 version = "0.1.0"
 edition = "2021"
+description = "Floating-point binary fractions: Do math in base 2!"
+# auto generated with cargo doc, and cargo publish
+documentation = "https://docs.rs/binary-fractions"
+readme = "README.md"
+homepage = "https://github.com/Jonny-exe/binary-fractions-rs"
+repository = "https://github.com/Jonny-exe/binary-fractions-rs/"
+license = "GPL-3.0-or-later"
+# crates.io only allows 5 keywords
+keywords = ["binary", "fractions", "twos-complement", "base-2", "floating-point-arithmetic"]
+# categories from https://github.com/rust-lang/crates.io/blob/master/src/boot/categories.toml
+categories = ["data-structures", "encoding"]
+exclude = ["todo.txt", "binary.py", ".*"]
+publish = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 regex = "1"
-fraction = "0.11.2"
+fraction = "0.11"
+
+# https://doc.rust-lang.org/cargo/reference/manifest.html#the-badges-section
+[badges]
+# experimental: The author wants to share it with the community but is not intending to meet anyone's particular use case.
+# Once working properly: change this to `actively-developed` or `passively-maintained`.
+maintenance = { status = "experimental" }
