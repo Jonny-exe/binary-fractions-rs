@@ -1,0 +1,16 @@
+[package]
+name = "sample"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "sample"
+test = false
+
+[dependencies]
+# url = "2.2.2"
+
+[dependencies.binary-fractions]
+path = "../../crates/binary-fractions"
+# version = "0.1.0"
