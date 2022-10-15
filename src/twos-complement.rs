@@ -1,6 +1,6 @@
 //! Class TwosComplement description
 
-imple TwosComplement {
+impl TwosComplement {
 }
 
 // Unit tests
