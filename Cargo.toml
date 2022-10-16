@@ -22,6 +22,10 @@ publish = true
 regex = "1"
 fraction = "0.11"
 
+[[example]]
+name = "sample"
+path = "examples/sample/src/main.rs"
+
 # https://doc.rust-lang.org/cargo/reference/manifest.html#the-badges-section
 [badges]
 # experimental: The author wants to share it with the community but is not intending to meet anyone's particular use case.
