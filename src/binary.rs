@@ -16,9 +16,12 @@ const _NINF: &str = "-Inf"; // type: &str
 pub const _BINARY_VERSION: &str = "20210721-160328";  // type: &str // format: date +%Y%m%d-%H%M%S
 const _BINARY_TOTAL_TESTS: i32 = 1646;  // type: int // number of asserts in .py file
 
-mod twos_complement;
+pub mod twos_complement;
 use crate::binary::twos_complement::TwosComplement;
 
+/// Structure for BinaryFractions
+// The struct is public so that others can use it as a type.
+// The fields are private to force user to use a contructor (associated fn).
 pub struct Binary<'a> {
     fraction: Fraction,
     string: &'a str,
@@ -26,7 +29,6 @@ pub struct Binary<'a> {
     is_special: bool,
     warn_on_float: bool,
     is_lossless: bool,
-
 }
 
 impl<'a> Binary<'a> {
@@ -36,29 +38,29 @@ impl<'a> Binary<'a> {
             simplify: Option<bool>, //default true
             warn_on_float: Option<bool>, //default false
         ) -> Binary<'a> {
-            // TODO: global _BINARY_WARNED_ABOUT_FLOAT
+        // TODO: global _BINARY_WARNED_ABOUT_FLOAT
         // self = super(Binary, cls).__new__(cls);
         let simplify = simplify.unwrap_or(true);
         let warn_on_float = warn_on_float.unwrap_or(false);
 
-        let parser = Regex::new(r"
-            \s*
-            (?P<sign>[-+])?              // an optional sign, followed by either...
-            (
-                (?=\d|\.[01])              // ...a number (with at least one digit)
-                (?P<int>[01]*)             // having a (possibly empty) integer part
-                (\.(?P<frac>[01]*))?       // followed by an optional fractional part
-                (E(?P<exp>[-+]?\d+))?    // followed by an optional exponent, or...
-            |
-                Inf(inity)?              // ...an infinity, or...
-            |
-                (?P<signal>s)?           // ...an (optionally signaling)
-                NaN                      // NaN
-                (?P<diag>\d*)            // with (possibly empty) diagnostic info.
-            )
-            \s*
-            \Z"
-        ).unwrap();
+        // let parser = Regex::new(r"
+        //     \s*
+        //     (?P<sign>[-+])?              // an optional sign, followed by either...
+        //     (
+        //         (?=\d|\.[01])              // ...a number (with at least one digit)
+        //         (?P<int>[01]*)             // having a (possibly empty) integer part
+        //         (\.(?P<frac>[01]*))?       // followed by an optional fractional part
+        //         (E(?P<exp>[-+]?\d+))?    // followed by an optional exponent, or...
+        //     |
+        //         Inf(inity)?              // ...an infinity, or...
+        //     |
+        //         (?P<signal>s)?           // ...an (optionally signaling)
+        //         NaN                      // NaN
+        //         (?P<diag>\d*)            // with (possibly empty) diagnostic info.
+        //     )
+        //     \s*
+        //     \Z"
+        // ).unwrap();
 
         let self_ = Binary {
             fraction: Fraction::from(0),
@@ -74,6 +76,12 @@ impl<'a> Binary<'a> {
         // self._is_special = False
         // self._warn_on_float = warn_on_float
         return self_
+    }
+
+    // for testing, not sure if this fn should be in the final implementation.
+    // str conversion might be done some other more generic way.
+    pub fn to_string(&self) -> &str {
+        return self.string
     }
 
     fn to_f64(value: &str) -> f64 {
@@ -236,7 +244,7 @@ impl<'a> Binary<'a> {
         // TODO
         return true;
     }
-    fn isi32(self: Binary<'a>) -> bool {
+    pub fn isi32(self: Binary<'a>) -> bool {
         // TODO
         return true;
     }
@@ -400,8 +408,25 @@ impl<'a> Binary<'a> {
 
 #[cfg(test)]
 mod tests {
+    use crate::binary::Binary;
+    use fraction::Fraction;
+
     #[test]
-    fn it_works() {
+    fn test_contructor() {
+        // This not working yet, requires == to be implemented via `PartialEq<_>`
+        // assert_eq!(Binary::from(1, None, None),Binary::from(1, None, None))
+        let m = Binary::from(1, None, None);
+        assert_eq!(m.to_string(),"");
+        let o = Binary {
+            fraction: Fraction::from(0),
+            string: "Hi",
+            sign: 0,
+            is_special: false,
+            warn_on_float: false,
+            is_lossless: false,
+        };
+        assert_eq!(o.to_string(),"Hi");
+    }
 
     // fn selftest(self) -> bool {}
     // fn test___new__(self) {}
@@ -477,5 +502,4 @@ mod tests {
     // fn test_to_twoscomplement(self) {}
     // fn test_from_twoscomplement(self) {}
 
-    }
 }
