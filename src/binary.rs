@@ -1,5 +1,6 @@
 // Selected function signatures with this regex: fn <A-Za-z\-\_>*\(<\s\S\n\t\rz>*?\)\s?(->\s)?<A-Za-z\_\<\>\, >*? {}
 #![allow(dead_code,unused_imports)]
+#![allow(unused_variables)]
 
 use regex::Regex;
 use fraction::{Fraction};
@@ -12,10 +13,13 @@ const _EXP: &str = "e";  // type: &str
 const _NAN: &str = "NaN";  // type: &str
 const _INF: &str = "Inf";  // type: &str
 const _NINF: &str = "-Inf"; // type: &str
-const _BINARY_VERSION: &str = "20210721-160328";  // type: &str // format: date +%Y%m%d-%H%M%S
+pub const _BINARY_VERSION: &str = "20210721-160328";  // type: &str // format: date +%Y%m%d-%H%M%S
 const _BINARY_TOTAL_TESTS: i32 = 1646;  // type: int // number of asserts in .py file
 
-struct Binary<'a> {
+mod twos_complement;
+use crate::binary::twos_complement::TwosComplement;
+
+pub struct Binary<'a> {
     fraction: Fraction,
     string: &'a str,
     sign: i32,
@@ -32,12 +36,12 @@ impl<'a> Binary<'a> {
             simplify: Option<bool>, //default true
             warn_on_float: Option<bool>, //default false
         ) -> Binary<'a> {
-            // TODO: global _BINARY_WARNED_ABOUT_FLOAT 
+            // TODO: global _BINARY_WARNED_ABOUT_FLOAT
         // self = super(Binary, cls).__new__(cls);
         let simplify = simplify.unwrap_or(true);
         let warn_on_float = warn_on_float.unwrap_or(false);
 
-        let parser = Regex::new(r" 
+        let parser = Regex::new(r"
             \s*
             (?P<sign>[-+])?              // an optional sign, followed by either...
             (
@@ -71,7 +75,7 @@ impl<'a> Binary<'a> {
         // self._warn_on_float = warn_on_float
         return self_
     }
-    
+
     fn to_f64(value: &str) -> f64 {
         return 0.0;
     }
@@ -125,7 +129,7 @@ impl<'a> Binary<'a> {
     }
 
     fn from_twoscomplement(value: TwosComplement, simplify: Option<bool>) -> Binary<'a> {
-        // ERROR in oriignal, return type 
+        // ERROR in oriignal, return type
         // TODO
         simplify.unwrap_or(true);
         return Binary::from(0, None, None);
@@ -151,7 +155,7 @@ impl<'a> Binary<'a> {
         return "";
     }
     fn no_prefix<T>(self_value: T) -> &'a str { // str or binary
-        // TODO 
+        // TODO
         return "";
     }
     fn np<T>(self_value: T) -> &'a str { // str or binary
@@ -472,5 +476,6 @@ mod tests {
     // fn test___invert__(self) {}
     // fn test_to_twoscomplement(self) {}
     // fn test_from_twoscomplement(self) {}
-}
 
+    }
+}
