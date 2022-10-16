@@ -14,3 +14,6 @@ error
 
 tests/binary_test.py
 src/binary.py
+*.py
+*/*.py
+*/*/*.py
