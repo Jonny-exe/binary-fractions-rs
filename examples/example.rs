@@ -3,10 +3,8 @@
 // Can be run via: cargo run --example example
 
 extern crate binary_fractions;
-use binary_fractions::*;
-use binary_fractions::binary::_BINARY_VERSION;
-use binary_fractions::binary::Binary;
-use crate::binary::twos_complement::TwosComplement;
+use binary_fractions::binary::*;
+use binary_fractions::binary::twos_complement::TwosComplement;
 //use fraction::Fraction;
 
 fn main() {
