@@ -1,5 +1,13 @@
-// To build and run cd to the subdirectory and run std cargo commands
-// E.g. pushd examples/sample && cargo build && cargo run && popd
+// To build this sample, one could cd to the subdirectory and run std cargo commands;
+// e.g. pushd examples/sample && cargo build && cargo run && popd
+// But this is a bad idead, because it creates the target directory under examples/sample.
+// The correct thing to do is:
+// Adding these 3 lines to the top level Cargo.toml file:
+//      [[example]]
+//      name = "sample"
+//      path = "examples/sample/src/main.rs"
+// Thereafter `cargo build --example` should show the new example, and std.
+// `cargo build --example sample` will build it.
 
 extern crate binary_fractions;
 use binary_fractions::binary::*;
