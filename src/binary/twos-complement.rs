@@ -1,6 +1,8 @@
 //! Class TwosComplement description
 
-
+/// Structure for TwosComplement
+// The struct is public so that BinaryFractions can use it as a type.
+// The fields are private to force user to use a contructor (associated fn).
 pub struct TwosComplement {
     value: i32
 }
@@ -63,5 +65,11 @@ mod tests {
         // assert_eq!(TwosComplement::new(),TwosComplement{ value: 0 })
         let n = TwosComplement::new();
         assert_eq!(n.value,0);
+        let m = TwosComplement::from(1);
+        assert_eq!(m.get(),1);
+        let o = TwosComplement{ value: 2 };
+        assert_eq!(o.get(),2);
+        let p = TwosComplement{ value: 3 };
+        assert_eq!(p.get(),3);
     }
 }
