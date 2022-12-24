@@ -1,15 +1,25 @@
 //! Class TwosComplement description
 
-
-struct TwosComplement {
+/// Structure for TwosComplement
+// The struct is public so that BinaryFractions can use it as a type.
+// The fields are private to force user to use a contructor (associated fn).
+pub struct TwosComplement {
     value: i32
 }
 
 impl TwosComplement {
-    fn from (value: i32) -> TwosComplement {
+    pub fn new () -> TwosComplement {
+        TwosComplement{
+            value: 0
+        }
+    }
+    pub fn from (value: i32) -> TwosComplement {
         TwosComplement{
             value: value
-        } 
+        }
+    }
+    pub fn get (&self) -> i32 {
+        self.value
     }
 }
 // impl TwosComplement {
@@ -22,7 +32,7 @@ impl TwosComplement {
 //         simplify: bool = true,
 //         warn_on_f64: bool = false,
 //     ) -> TwosComplement {}
-    
+
 //     fn istwoscomplement(value: &'a str) -> bool {}
 //     fn components(
 //             self_value: tuple<str, TwosComplement>, simplify: bool = true
@@ -47,7 +57,19 @@ impl TwosComplement {
 
 #[cfg(test)]
 mod tests {
+    use crate::binary::TwosComplement;
+
     #[test]
-    fn it_works() {
+    fn test_contructor() {
+        // This not working yet, requires == to be implemented via `PartialEq<_>`
+        // assert_eq!(TwosComplement::new(),TwosComplement{ value: 0 })
+        let n = TwosComplement::new();
+        assert_eq!(n.value,0);
+        let m = TwosComplement::from(1);
+        assert_eq!(m.get(),1);
+        let o = TwosComplement{ value: 2 };
+        assert_eq!(o.get(),2);
+        let p = TwosComplement{ value: 3 };
+        assert_eq!(p.get(),3);
     }
 }

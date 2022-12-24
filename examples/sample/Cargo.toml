@@ -12,5 +12,5 @@ test = false
 # url = "2.2.2"
 
 [dependencies.binary-fractions]
-path = "../../crates/binary-fractions"
+path = "../../"
 # version = "0.1.0"
